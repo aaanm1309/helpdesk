@@ -2,11 +2,13 @@ package br.com.adrianomenezes.helpdesk.services;
 
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.adrianomenezes.helpdesk.domain.Tecnico;
 import br.com.adrianomenezes.helpdesk.repositories.TecnicoRepository;
+import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
 
 @Service
 public class TecnicoService {
@@ -16,7 +18,7 @@ public class TecnicoService {
 
     public Tecnico findById(Integer id) {
         Optional<Tecnico> tec =  tecnicoRepository.findById(id);
-        return tec.orElse(null);
+        return tec.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado com id: " + id));
     
     }
 
