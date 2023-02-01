@@ -5,9 +5,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.adrianomenezes.helpdesk.domain.Chamado;
+import br.com.adrianomenezes.helpdesk.domain.Cliente;
+import br.com.adrianomenezes.helpdesk.domain.Tecnico;
+import br.com.adrianomenezes.helpdesk.domain.dtos.ChamadoDTO;
 import br.com.adrianomenezes.helpdesk.repositories.ChamadoRepository;
 
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -16,7 +20,11 @@ public class ChamadoService {
     @Autowired
     private ChamadoRepository chamadoRepository;
 
+    @Autowired
+    private TecnicoService tecnicoService;
 
+    @Autowired
+    private ClienteService clienteService;
 
     public Chamado findById(Integer id) {
         Optional<Chamado> chamado =  chamadoRepository.findById(id);
@@ -28,33 +36,34 @@ public class ChamadoService {
         return chamadoRepository.findAll();
     }
 
-    // public Cliente save(ClienteDTO cliDto) {
-    //     cliDto.setId(null);
-    //     validaPorCpfeEmail(cliDto);
-    //     return chamadoRepository.save(new Cliente(cliDto));
-    // }
+    public Chamado save(ChamadoDTO chamadoDto) {
+        chamadoDto.setId(null);
+   
+        return chamadoRepository.save(newChamado(chamadoDto));
+    }
 
-    // private void validaPorCpfeEmail(ClienteDTO cliDto) {
-    //     Optional<Pessoa> pessoa = pessoaRepository.findByCpf(cliDto.getCpf());
-    //     if (pessoa.isPresent() && pessoa.get().getId() != cliDto.getId()){
-    //         throw new DataIntegrityViolationException("Cpf já cadastrado no sistema!");
-    //     }
-    //     pessoa = pessoaRepository.findByEmail(cliDto.getEmail());
-    //     if (pessoa.isPresent() && pessoa.get().getId() != cliDto.getId()){
-    //         throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
-    //     }
+    private Chamado newChamado(ChamadoDTO chamadoDto){
+        Tecnico tecnico = tecnicoService.findById(chamadoDto.getTecnico());
+        Cliente cliente = clienteService.findById(chamadoDto.getCliente());
 
-    // }
+        Chamado chamado = new Chamado(chamadoDto, tecnico, cliente);
+        // if (chamadoDto.getId() != null ) {
+        //     chamado.setId(chamadoDto.getId());
+        // }
+        return chamado;
 
-    // public Cliente update(Integer id, @Valid ClienteDTO cliDto) {
-    //     cliDto.setId(id);
-    //     findById(id);
-    //     validaPorCpfeEmail(cliDto);
-    //     return clienteRepository.save(new Cliente(cliDto));
-    // }
+           
+    }
+
+    public Chamado update(Integer id, @Valid ChamadoDTO chamadoDto) {
+        chamadoDto.setId(id);
+        findById(id);
+
+        return chamadoRepository.save(newChamado(chamadoDto));
+    }
 
     // public void delete(Integer id) {
-    //     Cliente tec = findById(id);
+    //     Chamado tec = findById(id);
     //     if (tec.getChamados().size() > 0) {
     //         throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não podem ser deletados");
     //     }

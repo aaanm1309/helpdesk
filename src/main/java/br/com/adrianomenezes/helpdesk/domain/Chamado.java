@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.adrianomenezes.helpdesk.domain.dtos.ChamadoDTO;
 import br.com.adrianomenezes.helpdesk.domain.enums.Prioridade;
 import br.com.adrianomenezes.helpdesk.domain.enums.Status;
 import jakarta.persistence.Entity;
@@ -55,9 +56,38 @@ public class Chamado implements Serializable {
         this.observacoes = observacoes;
         this.tecnico = tecnico;
         this.cliente = cliente;
+        atualizaFechamento();
     }
 
-    
+    public Chamado(ChamadoDTO chamadoDto) {
+        super();
+        this.id = chamadoDto.getId();
+        this.prioridade = Prioridade.toEnum(chamadoDto.getPrioridade());
+        this.status = Status.toEnum(chamadoDto.getStatus());
+        this.titulo = chamadoDto.getTitulo();
+        this.observacoes = chamadoDto.getObservacoes();
+        // this.tecnico = chamadoDto.getTecnico();
+        // this.cliente = chamadoDto.getCliente();
+        atualizaFechamento();
+    }
+
+    public Chamado(ChamadoDTO chamadoDto, Tecnico tecnico, Cliente cliente) {
+        super();
+        this.id = chamadoDto.getId();
+        this.prioridade = Prioridade.toEnum(chamadoDto.getPrioridade());
+        this.status = Status.toEnum(chamadoDto.getStatus());
+        this.titulo = chamadoDto.getTitulo();
+        this.observacoes = chamadoDto.getObservacoes();
+        this.tecnico = tecnico;
+        this.cliente = cliente;
+        atualizaFechamento();
+    }
+
+    private void atualizaFechamento() {
+        if (this.status.getCodigo() == 2) {
+            this.dataFechamento = LocalDate.now();
+        }
+    }
 
     public Integer getId() {
         return id;
