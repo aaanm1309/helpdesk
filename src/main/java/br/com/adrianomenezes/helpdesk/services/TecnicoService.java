@@ -14,6 +14,7 @@ import br.com.adrianomenezes.helpdesk.repositories.PessoaRepository;
 import br.com.adrianomenezes.helpdesk.repositories.TecnicoRepository;
 import br.com.adrianomenezes.helpdesk.services.exceptions.DataIntegrityViolationException;
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
+import jakarta.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -50,6 +51,13 @@ public class TecnicoService {
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
 
+    }
+
+    public Tecnico update(Integer id, @Valid TecnicoDTO tecDto) {
+        tecDto.setId(id);
+        findById(id);
+        validaPorCpfeEmail(tecDto);
+        return tecnicoRepository.save(new Tecnico(tecDto));
     }
 
     
