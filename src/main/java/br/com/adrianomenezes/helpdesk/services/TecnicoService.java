@@ -1,5 +1,6 @@
 package br.com.adrianomenezes.helpdesk.services;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -20,6 +21,10 @@ public class TecnicoService {
         Optional<Tecnico> tec =  tecnicoRepository.findById(id);
         return tec.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado com id: " + id));
     
+    }
+
+    public List<Tecnico> findAll() {
+        return tecnicoRepository.findAll();
     }
 
     
