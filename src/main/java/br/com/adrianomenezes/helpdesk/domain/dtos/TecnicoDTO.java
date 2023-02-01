@@ -6,9 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.Length;
+
 import br.com.adrianomenezes.helpdesk.domain.Tecnico;
 import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,10 +28,14 @@ public class TecnicoDTO implements Serializable{
     
     @NotNull(message = "O campo CPF é requerido")
     protected String cpf;
+
     @NotNull(message = "O campo EMAIL é requerido")
     protected String email;
+
     @NotNull(message = "O campo SENHA é requerido")
+    @Size(min = 3,  message = "O campo SENHA deve ter no minimo 3 caracteres")
     protected String senha;
+    
     protected Set<Integer> perfis = new HashSet<>();
     
 
