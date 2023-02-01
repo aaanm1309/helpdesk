@@ -6,7 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import br.com.adrianomenezes.helpdesk.domain.Tecnico;
+
+import br.com.adrianomenezes.helpdesk.domain.Cliente;
 import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,7 +16,7 @@ import lombok.Setter;
 
 
 @Getter@Setter
-public class TecnicoDTO implements Serializable{
+public class ClienteDTO implements Serializable{
 
     private static final long serialVersionUID = 1L;
     protected Integer id;
@@ -38,21 +39,21 @@ public class TecnicoDTO implements Serializable{
 
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoDTO(){
+    public ClienteDTO(){
         super();
     }
 
-    public TecnicoDTO(Tecnico tecnico){
+    public ClienteDTO(Cliente cliente){
         super();
-        this.id = tecnico.getId();
-        this.nome = tecnico.getNome();
-        this.cpf = tecnico.getCpf();
-        this.email = tecnico.getEmail();
-        this.senha = tecnico.getSenha();
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.email = cliente.getEmail();
+        this.senha = cliente.getSenha();
 
-        this.perfis =  tecnico.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+        this.perfis =  cliente.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 
-        this.dataCriacao = tecnico.getDataCriacao();
+        this.dataCriacao = cliente.getDataCriacao();
         
     }
 
