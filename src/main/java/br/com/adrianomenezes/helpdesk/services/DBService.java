@@ -12,9 +12,8 @@ import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
 import br.com.adrianomenezes.helpdesk.domain.enums.Prioridade;
 import br.com.adrianomenezes.helpdesk.domain.enums.Status;
 import br.com.adrianomenezes.helpdesk.repositories.ChamadoRepository;
-import br.com.adrianomenezes.helpdesk.repositories.ClienteRepository;
 import br.com.adrianomenezes.helpdesk.repositories.PessoaRepository;
-import br.com.adrianomenezes.helpdesk.repositories.TecnicoRepository;
+
 
 @Service
 public class DBService {

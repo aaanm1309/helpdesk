@@ -4,9 +4,11 @@ package br.com.adrianomenezes.helpdesk.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.adrianomenezes.helpdesk.domain.dtos.TecnicoDTO;
 import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -37,6 +39,21 @@ public class Tecnico extends Pessoa{
 
     public Tecnico( String nome, String cpf, String email, String senha) {
         super( nome, cpf, email, senha);
+        addPerfil(Perfil.TECNICO);
+        addPerfil(Perfil.CLIENTE);
+    }
+
+    public Tecnico(TecnicoDTO tecDto){
+        super();
+        this.id = tecDto.getId();
+        this.nome = tecDto.getNome();
+        this.cpf = tecDto.getCpf();
+        this.email = tecDto.getEmail();
+        this.senha = tecDto.getSenha();
+
+        this.perfis =  tecDto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+
+        this.dataCriacao = tecDto.getDataCriacao();
         addPerfil(Perfil.TECNICO);
         addPerfil(Perfil.CLIENTE);
     }
