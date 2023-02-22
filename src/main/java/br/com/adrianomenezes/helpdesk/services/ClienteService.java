@@ -14,7 +14,8 @@ import br.com.adrianomenezes.helpdesk.repositories.PessoaRepository;
 import br.com.adrianomenezes.helpdesk.repositories.ClienteRepository;
 import br.com.adrianomenezes.helpdesk.services.exceptions.DataIntegrityViolationException;
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
+
 
 @Service
 public class ClienteService {
@@ -37,6 +38,8 @@ public class ClienteService {
 
     public Cliente save(ClienteDTO cliDto) {
         cliDto.setId(null);
+        cliDto.encryptaSenha();
+
         validaPorCpfeEmail(cliDto);
         return clienteRepository.save(new Cliente(cliDto));
     }

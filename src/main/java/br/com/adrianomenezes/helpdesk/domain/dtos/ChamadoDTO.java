@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.adrianomenezes.helpdesk.domain.Chamado;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,9 +55,4 @@ public class ChamadoDTO implements Serializable{
         this.nomeCliente = chamado.getCliente().getNome();
     }
 
-
-
-
-    
-    
 }

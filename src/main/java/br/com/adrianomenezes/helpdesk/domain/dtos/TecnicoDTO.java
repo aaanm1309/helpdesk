@@ -8,16 +8,23 @@ import java.util.stream.Collectors;
 
 import br.com.adrianomenezes.helpdesk.domain.Tecnico;
 import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Getter@Setter
 public class TecnicoDTO implements Serializable{
+    @Autowired
+	private BCryptPasswordEncoder encoder;
 
     private static final long serialVersionUID = 1L;
+
+
+
     protected Integer id;
 
     @NotNull(message = "O campo NOME é requerido")
@@ -54,6 +61,10 @@ public class TecnicoDTO implements Serializable{
 
         this.dataCriacao = tecnico.getDataCriacao();
         
+    }
+
+    public void encryptaSenha(){
+        this.setSenha(encoder.encode(this.getSenha()));
     }
 
     public Set<Perfil> getPerfis() {

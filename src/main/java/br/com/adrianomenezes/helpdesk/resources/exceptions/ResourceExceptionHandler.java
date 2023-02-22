@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.adrianomenezes.helpdesk.services.exceptions.DataIntegrityViolationException;
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

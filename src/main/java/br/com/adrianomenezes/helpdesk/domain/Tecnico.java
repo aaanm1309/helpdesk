@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.adrianomenezes.helpdesk.domain.dtos.TecnicoDTO;
 import br.com.adrianomenezes.helpdesk.domain.enums.Perfil;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 

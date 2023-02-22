@@ -11,7 +11,7 @@ import br.com.adrianomenezes.helpdesk.domain.dtos.ChamadoDTO;
 import br.com.adrianomenezes.helpdesk.repositories.ChamadoRepository;
 
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 @Service
@@ -47,9 +47,6 @@ public class ChamadoService {
         Cliente cliente = clienteService.findById(chamadoDto.getCliente());
 
         Chamado chamado = new Chamado(chamadoDto, tecnico, cliente);
-        // if (chamadoDto.getId() != null ) {
-        //     chamado.setId(chamadoDto.getId());
-        // }
         return chamado;
 
            
@@ -62,14 +59,4 @@ public class ChamadoService {
         return chamadoRepository.save(newChamado(chamadoDto));
     }
 
-    // public void delete(Integer id) {
-    //     Chamado tec = findById(id);
-    //     if (tec.getChamados().size() > 0) {
-    //         throw new DataIntegrityViolationException("Técnico possui ordens de serviço e não podem ser deletados");
-    //     }
-    //     clienteRepository.deleteById(id);
-
-    // }
-
-    
 }

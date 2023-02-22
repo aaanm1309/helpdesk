@@ -22,7 +22,7 @@ import br.com.adrianomenezes.helpdesk.domain.Chamado;
 import br.com.adrianomenezes.helpdesk.domain.dtos.ChamadoDTO;
 
 import br.com.adrianomenezes.helpdesk.services.ChamadoService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 
 @RestController
@@ -69,15 +69,4 @@ public class ChamadoResource {
         return ResponseEntity.ok( new ChamadoDTO(chamado));
     } 
 
-    // @DeleteMapping(value = "/{id}")
-    // public ResponseEntity<ChamadoDTO> delete(@PathVariable Integer id){
-    //     service.delete(id);
-
-    //     return ResponseEntity.noContent().build();
-        
-
-    // } 
-    
-    
 }
- 

@@ -14,7 +14,7 @@ import br.com.adrianomenezes.helpdesk.repositories.PessoaRepository;
 import br.com.adrianomenezes.helpdesk.repositories.TecnicoRepository;
 import br.com.adrianomenezes.helpdesk.services.exceptions.DataIntegrityViolationException;
 import br.com.adrianomenezes.helpdesk.services.exceptions.ObjectnotFoundException;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @Service
 public class TecnicoService {
@@ -37,6 +37,7 @@ public class TecnicoService {
 
     public Tecnico save(TecnicoDTO tecDto) {
         tecDto.setId(null);
+        tecDto.encryptaSenha();
         validaPorCpfeEmail(tecDto);
         return tecnicoRepository.save(new Tecnico(tecDto));
     }

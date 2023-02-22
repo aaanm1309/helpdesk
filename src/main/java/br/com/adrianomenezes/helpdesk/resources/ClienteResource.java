@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.adrianomenezes.helpdesk.domain.Cliente;
 import br.com.adrianomenezes.helpdesk.domain.dtos.ClienteDTO;
 import br.com.adrianomenezes.helpdesk.services.ClienteService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/clientes")

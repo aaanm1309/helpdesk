@@ -19,7 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.adrianomenezes.helpdesk.domain.Tecnico;
 import br.com.adrianomenezes.helpdesk.domain.dtos.TecnicoDTO;
 import br.com.adrianomenezes.helpdesk.services.TecnicoService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/tecnicos")
