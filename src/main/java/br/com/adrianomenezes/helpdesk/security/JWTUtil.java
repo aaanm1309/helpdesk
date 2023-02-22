@@ -33,7 +33,7 @@ public class JWTUtil {
 			String username = claims.getSubject();
 			Date expirationDate = claims.getExpiration();
 			Date now = new Date(System.currentTimeMillis());
-			
+			// System.err.println("É expirado: "+now.before(expirationDate));
 			if(username != null && expirationDate != null && now.before(expirationDate)) {
 				return true;
 			}

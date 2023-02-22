@@ -14,15 +14,13 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Getter
 @Setter
 public class ClienteDTO implements Serializable{
 
-    @Autowired
-	private BCryptPasswordEncoder encoder;
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     private static final long serialVersionUID = 1L;
     protected Integer id;

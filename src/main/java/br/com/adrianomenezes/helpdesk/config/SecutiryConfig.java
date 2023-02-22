@@ -1,6 +1,7 @@
 package br.com.adrianomenezes.helpdesk.config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +14,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.adrianomenezes.helpdesk.security.JWTAuthenticationFilter;
+import br.com.adrianomenezes.helpdesk.security.JWTAuthorizationFilter;
 import br.com.adrianomenezes.helpdesk.security.JWTUtil;
 
 import java.util.Arrays;
@@ -23,8 +25,9 @@ import org.springframework.context.annotation.Bean;
 
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecutiryConfig extends WebSecurityConfigurerAdapter   {
-    private static final String[] PUBLIC_MATCHERS = {"/resources/**","/h2-console","/login/**","/tecnicos/**"};
+    private static final String[] PUBLIC_MATCHERS = {"/resources/**","/login/**"};
 
     @Autowired
     private Environment env;
@@ -51,7 +54,8 @@ public class SecutiryConfig extends WebSecurityConfigurerAdapter   {
 
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-        
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));        
+
         http
             .authorizeHttpRequests()
             .antMatchers(PUBLIC_MATCHERS).permitAll()
